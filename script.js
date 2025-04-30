@@ -1,3 +1,12 @@
+let humanScore = 0;
+let computerScore = 0;
+
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => button.addEventListener("click", () => {
+    playRound(button.textContent, getComputerChoice());
+}));
+
 function getComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3) + 1;
     switch (computerChoice) {
@@ -10,19 +19,7 @@ function getComputerChoice() {
     }
 }
 
-function getPlayerSelection(e) {
-    console.log(e.target.textContent);
-}
-
-const buttons = document.querySelectorAll("button");
-
-buttons.forEach(button => button.addEventListener("click", getPlayerSelection));
-
-let humanScore = 0;
-let computerScore = 0;
-
 function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toUpperCase();
     console.log(`Human Choice: ${humanChoice}`);
     console.log(`Computer Choice: ${computerChoice}`);
 
@@ -48,17 +45,26 @@ function playRound(humanChoice, computerChoice) {
         console.log('Computer wins! Scissors cuts Paper.');
     }
 
+    console.log(`Human score: ${humanScore}`);
+    console.log(`Computer score: ${computerScore}`);
+
+    if (humanScore === 5 || computerScore === 5) {
+        gameOver();
+    }
+
 }
 
 function gameOver() {
-    console.log('GAME OVER!');
-
-    if (computerScore === humanScore) {
-        console.log("Draw!");
-    } else if (computerScore > humanScore) {
-        console.log('Computer Wins!');
+    if (humanScore === 5) {
+        console.log("YOU WON THE GAME");
     } else {
-        console.log('You win!'); '';
+        console.log("COMPUTER WON THE GAME");
     }
+    resetGame();
+}
+
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
 }
 
